@@ -15,7 +15,7 @@ services:
       - ./nginx:/etc/nginx/conf.d
       - /etc/localtime:/etc/localtime:ro
       - /etc/letsencrypt:/etc/letsencrypt:ro
-      - ./frontend/dist:/usr/share/nginx/html
+      - ./front/dist:/usr/share/nginx/html
   adminer:
     image: adminer:latest
     container_name: adminer
