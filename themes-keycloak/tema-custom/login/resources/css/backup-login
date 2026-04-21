@@ -1,0 +1,822 @@
+/* ============================================================
+   SOA 2026 — Keycloak Login Theme
+   ============================================================ */
+
+/* ── Reset de fondo de Patternfly ── */
+.login-pf {
+    background: none;
+}
+
+.login-pf body {
+    background: linear-gradient(135deg, #0a0e1a 0%, #0d1b2e 55%, #0a1628 100%);
+    background-attachment: fixed;
+    background-size: cover;
+    height: 100%;
+    font-family: 'Inter', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* ── Ocultar elementos no deseados ── */
+#kc-attempted-username {
+    display: none !important;
+}
+
+.kc-username-wrapper {
+    display: none !important;
+}
+
+/* ── Contenedor principal ── */
+.login-pf .container {
+    padding-top: 40px;
+}
+
+/* ── Tarjeta principal ── */
+.card-pf {
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-top: 3px solid #378ADD;
+    border-radius: 14px;
+    padding: 36px 32px 28px;
+    max-width: 420px;
+    box-shadow:
+        0 0 60px rgba(24, 95, 165, 0.12),
+        0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+/* ── Logotipo ── */
+#kc-logo {
+    width: 100%;
+}
+
+div.kc-logo-text {
+    background-image: none;
+    height: auto;
+    width: auto;
+    margin: 0 auto 6px;
+    text-align: center;
+}
+
+div.kc-logo-text span {
+    display: inline-block;
+    font-size: 26px;
+    font-weight: 700;
+    color: #ffffff;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+}
+
+/* ── Encabezado ── */
+#kc-header {
+    color: #ededed;
+    overflow: visible;
+    white-space: nowrap;
+    text-align: center;
+    margin-bottom: 4px;
+}
+
+#kc-header-wrapper {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: rgba(255, 255, 255, 0.35);
+    padding: 0 10px 20px;
+    white-space: normal;
+    text-align: center;
+    line-height: 1.4;
+}
+
+/* ── Título de página ── */
+h1#kc-page-title {
+    margin-top: 0;
+    font-size: 15px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.75);
+    text-align: center;
+    margin-bottom: 20px;
+    letter-spacing: 0.3px;
+}
+
+/* ── Etiquetas de formulario ── */
+.pf-c-form__label-text {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.45);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+}
+
+/* ── Inputs ── */
+.pf-c-form-control {
+    background: rgba(255, 255, 255, 0.06) !important;
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+    border-radius: 8px !important;
+    color: rgba(255, 255, 255, 0.88) !important;
+    font-size: 14px !important;
+    padding: 10px 14px !important;
+    transition: border-color 0.2s, background 0.2s;
+}
+
+.pf-c-form-control:focus {
+    border-color: #378ADD !important;
+    background: rgba(55, 138, 221, 0.08) !important;
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+.pf-c-form-control::placeholder {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+textarea.pf-c-form-control {
+    height: auto;
+}
+
+/* ── Botón principal ── */
+.pf-c-button.pf-m-primary,
+#kc-login,
+#kc-register,
+.btn-primary {
+    background: #185FA5 !important;
+    border: none !important;
+    border-radius: 8px !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    letter-spacing: 0.4px !important;
+    padding: 11px 20px !important;
+    color: #ffffff !important;
+    transition: background 0.2s !important;
+    width: 100%;
+}
+
+.pf-c-button.pf-m-primary:hover,
+#kc-login:hover,
+.btn-primary:hover {
+    background: #378ADD !important;
+}
+
+/* ── Botones secundarios ── */
+.pf-c-button.pf-m-secondary,
+.btn-default {
+    background: rgba(255, 255, 255, 0.04) !important;
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+    border-radius: 8px !important;
+    color: rgba(255, 255, 255, 0.6) !important;
+    font-size: 13px !important;
+}
+
+.pf-c-button.pf-m-secondary:hover,
+.btn-default:hover {
+    background: rgba(255, 255, 255, 0.08) !important;
+    border-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+.pf-c-button.pf-m-control {
+    border-color: rgba(255, 255, 255, 0.15);
+}
+
+/* ── Links ── */
+.login-pf a,
+.login-pf a:visited {
+    color: #378ADD;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.login-pf a:hover {
+    color: #85B7EB;
+}
+
+/* ── Opciones del formulario (checkbox "Recordarme") ── */
+#kc-form-options .checkbox {
+    margin-top: 0;
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 12px;
+}
+
+#kc-form-options span {
+    display: block;
+}
+
+/* ── Botones del formulario ── */
+#kc-form-buttons {
+    margin-top: 20px;
+}
+
+.card-pf form.form-actions .btn {
+    float: right;
+    margin-left: 10px;
+}
+
+.login-pf-page .btn-primary {
+    margin-top: 0;
+}
+
+/* ── Alertas ── */
+.pf-c-alert__title {
+    font-size: var(--pf-global--FontSize--xs);
+}
+
+.pf-c-alert.pf-m-danger {
+    background: rgba(162, 45, 45, 0.15) !important;
+    border-color: rgba(162, 45, 45, 0.3) !important;
+    border-radius: 8px !important;
+}
+
+.pf-c-alert.pf-m-success {
+    background: rgba(15, 110, 86, 0.15) !important;
+    border-color: rgba(15, 110, 86, 0.3) !important;
+    border-radius: 8px !important;
+}
+
+/* ── Info / registro ── */
+#kc-info {
+    margin: 20px -32px -28px;
+    border-radius: 0 0 14px 14px;
+    overflow: hidden;
+}
+
+#kc-info-wrapper {
+    font-size: 13px;
+    padding: 14px 32px;
+    background: rgba(255, 255, 255, 0.04);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    color: rgba(255, 255, 255, 0.35);
+}
+
+/* ── Registro ── */
+#kc-registration {
+    margin-bottom: 0;
+    text-align: center;
+}
+
+.login-pf-page .login-pf-signup {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.35);
+}
+
+/* ── Términos ── */
+#kc-terms-text {
+    margin-bottom: 20px;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 13px;
+}
+
+#kc-registration-terms-text {
+    max-height: 100px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    margin: 5px;
+}
+
+/* ── Selector de idioma ── */
+#kc-locale ul {
+    background-color: #0d1b2e;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    display: none;
+    top: 20px;
+    min-width: 120px;
+    padding: 4px 0;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+#kc-locale-dropdown {
+    display: inline-block;
+}
+
+#kc-locale-dropdown:hover ul {
+    display: block;
+}
+
+#kc-locale-dropdown a {
+    color: rgba(255, 255, 255, 0.55);
+    text-align: right;
+    font-size: var(--pf-global--FontSize--sm);
+    padding: 6px 12px;
+    display: block;
+}
+
+#kc-locale-dropdown a:hover {
+    color: #378ADD;
+    background: rgba(55, 138, 221, 0.08);
+}
+
+#kc-locale-dropdown button {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    color: rgba(255, 255, 255, 0.4);
+    text-align: right;
+    font-size: var(--pf-global--FontSize--sm);
+}
+
+button#kc-current-locale-link::after {
+    content: "\2c5";
+    margin-left: var(--pf-global--spacer--xs);
+}
+
+/* ── Social / Identity Providers ── */
+.kc-social-links {
+    margin-top: 16px;
+}
+
+.kc-social-links li {
+    width: 100%;
+}
+
+.kc-social-provider-logo {
+    font-size: 18px;
+    width: 28px;
+    height: 22px;
+    float: left;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.kc-social-item {
+    margin-bottom: 8px;
+    font-size: 14px;
+    text-align: center;
+}
+
+.kc-social-section {
+    text-align: center;
+}
+
+.kc-social-section hr {
+    margin-bottom: 12px;
+    border-color: rgba(255, 255, 255, 0.08);
+}
+
+.kc-social-gray {
+    color: rgba(255, 255, 255, 0.3);
+}
+
+.kc-social-gray h2 {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.kc-social-grid {
+    display: grid;
+    grid-column-gap: 10px;
+    grid-row-gap: 6px;
+    grid-column-end: span 6;
+    --pf-l-grid__item--GridColumnEnd: span 6;
+}
+
+.kc-social-provider-name {
+    position: relative;
+}
+
+.kc-social-icon-text {
+    left: -15px;
+}
+
+/* ── TOTP ── */
+.subtitle {
+    text-align: right;
+    margin-top: 30px;
+    color: rgba(255, 255, 255, 0.3);
+    font-size: 12px;
+}
+
+.required {
+    color: #E24B4A;
+}
+
+ol#kc-totp-settings {
+    margin: 0;
+    padding-left: 20px;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+ul#kc-totp-supported-apps {
+    margin-bottom: 10px;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+#kc-totp-secret-qr-code {
+    max-width: 150px;
+    max-height: 150px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 8px;
+    background: rgba(255, 255, 255, 0.9);
+}
+
+#kc-totp-secret-key {
+    background: rgba(55, 138, 221, 0.08);
+    color: #85B7EB;
+    font-size: 14px;
+    padding: 10px 14px;
+    border-radius: 8px;
+    border: 1px solid rgba(55, 138, 221, 0.2);
+    font-family: 'Courier New', monospace;
+    letter-spacing: 1px;
+    text-align: center;
+}
+
+/* ── OAuth ── */
+#kc-oauth h3 {
+    margin-top: 0;
+    color: rgba(255, 255, 255, 0.75);
+}
+
+#kc-oauth ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#kc-oauth ul li {
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    font-size: 12px;
+    padding: 10px 0;
+    color: rgba(255, 255, 255, 0.55);
+}
+
+#kc-oauth ul li:first-of-type {
+    border-top: 0;
+}
+
+#kc-oauth .kc-role {
+    display: inline-block;
+    width: 50%;
+}
+
+/* ── Instrucción ── */
+p.instruction {
+    margin: 5px 0;
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+/* ── Username ── */
+#kc-username {
+    text-align: center;
+    margin-bottom: -10px;
+}
+
+#kc-attempted-username {
+    font-size: 18px;
+    font-family: inherit;
+    font-weight: normal;
+    padding-right: 10px;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* ── Código ── */
+#kc-code textarea {
+    width: 100%;
+    height: 8em;
+}
+
+/* ── Tooltip ── */
+.kc-login-tooltip {
+    position: relative;
+    display: inline-block;
+}
+
+.kc-login-tooltip .kc-tooltip-text {
+    top: -3px;
+    left: 160%;
+    background-color: #0d1b2e;
+    border: 1px solid rgba(55, 138, 221, 0.3);
+    visibility: hidden;
+    color: rgba(255, 255, 255, 0.85);
+    min-width: 140px;
+    text-align: center;
+    border-radius: 6px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+    padding: 6px 10px;
+    font-size: 12px;
+    position: absolute;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.kc-login-tooltip:hover .kc-tooltip-text {
+    visibility: visible;
+    opacity: 1;
+}
+
+.kc-login-tooltip .kc-tooltip-text::after {
+    content: " ";
+    position: absolute;
+    top: 14px;
+    right: 100%;
+    margin-top: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent #0d1b2e transparent transparent;
+}
+
+/* ── WebAuthn ── */
+#kc-webauthn-settings-form {
+    padding-top: 8px;
+}
+
+#kc-form-webauthn .select-auth-box-parent {
+    pointer-events: none;
+}
+
+#kc-form-webauthn .select-auth-box-desc {
+    color: rgba(255, 255, 255, 0.45);
+}
+
+#kc-form-webauthn .select-auth-box-headline {
+    color: #378ADD;
+}
+
+#kc-form-webauthn .select-auth-box-icon {
+    flex: 0 0 3em;
+}
+
+#kc-form-webauthn .select-auth-box-icon-properties {
+    margin-top: 10px;
+    font-size: 1.8em;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+#kc-form-webauthn .select-auth-box-icon-properties.unknown-transport-class {
+    margin-top: 3px;
+}
+
+#kc-form-webauthn .pf-l-stack__item {
+    margin: -1px 0;
+}
+
+/* ── Select auth box ── */
+.select-auth-box-arrow {
+    display: flex;
+    align-items: center;
+    margin-right: 2rem;
+    color: rgba(255, 255, 255, 0.3);
+}
+
+.select-auth-box-icon {
+    display: flex;
+    flex: 0 0 2em;
+    justify-content: center;
+    margin-right: 1rem;
+    margin-left: 3rem;
+}
+
+.select-auth-box-parent {
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    cursor: pointer;
+    text-align: left;
+    align-items: unset;
+    background-color: unset;
+    border-right: unset;
+    border-bottom: unset;
+    border-left: unset;
+}
+
+.select-auth-box-parent:hover {
+    background-color: rgba(55, 138, 221, 0.06);
+}
+
+.select-auth-container {
+    padding-bottom: 0 !important;
+}
+
+.select-auth-box-headline {
+    font-size: var(--pf-global--FontSize--md);
+    color: #378ADD;
+    font-weight: 500;
+}
+
+.select-auth-box-desc {
+    font-size: var(--pf-global--FontSize--sm);
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.select-auth-box-paragraph {
+    text-align: center;
+    font-size: var(--pf-global--FontSize--md);
+    margin-bottom: 5px;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+/* ── Botón volver ── */
+#kc-back {
+    margin-top: 5px;
+    color: rgba(255, 255, 255, 0.4) !important;
+    font-size: 13px;
+}
+
+/* ── Contenido ── */
+#kc-content {
+    width: 100%;
+}
+
+#kc-content-wrapper {
+    margin-top: 16px;
+}
+
+#kc-form-wrapper {
+    margin-top: 10px;
+}
+
+#kc-content-wrapper .row {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+/* ── Recovery codes ── */
+.kc-recovery-codes-warning {
+    margin-bottom: 24px;
+}
+
+.kc-recovery-codes-warning .pf-c-alert__description p {
+    font-size: 0.875rem;
+}
+
+.kc-recovery-codes-list {
+    list-style: none;
+    columns: 2;
+    margin: 16px 0;
+    padding: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.kc-recovery-codes-list li {
+    margin-bottom: 8px;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.6);
+    font-family: 'Courier New', monospace;
+}
+
+.kc-recovery-codes-list li span {
+    color: rgba(255, 255, 255, 0.3);
+    width: 18px;
+    text-align: right;
+    display: inline-block;
+    margin-right: 4px;
+}
+
+.kc-recovery-codes-actions {
+    margin-bottom: 20px;
+}
+
+.kc-recovery-codes-actions button {
+    padding-left: 0;
+}
+
+.kc-recovery-codes-actions button i {
+    margin-right: 8px;
+}
+
+.kc-recovery-codes-confirmation {
+    align-items: baseline;
+    margin-bottom: 16px;
+}
+
+/* ── Misceláneos ── */
+#certificate_subjectDN {
+    overflow-wrap: break-word;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.no-bottom-margin {
+    margin-bottom: 0;
+}
+
+#kc-form-login div.form-group:last-of-type,
+#kc-register-form div.form-group:last-of-type,
+#kc-update-profile-form div.form-group:last-of-type,
+#kc-update-email-form div.form-group:last-of-type {
+    margin-bottom: 0;
+}
+
+.login-pf-page .login-pf-brand {
+    margin-top: 16px;
+    max-width: 360px;
+    width: 40%;
+}
+
+.login-pf-page.login-pf-page-accounts {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.login-pf-page .list-view-pf .list-group-item {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.login-pf-page .list-view-pf-description {
+    width: 100%;
+}
+
+/* ── Responsive: escritorio ── */
+@media (min-width: 768px) {
+    #kc-container-wrapper {
+        position: absolute;
+        width: 100%;
+    }
+
+    .login-pf .container {
+        padding-right: 80px;
+    }
+
+    #kc-locale {
+        position: relative;
+        text-align: right;
+        z-index: 9999;
+    }
+}
+
+/* ── Responsive: móvil ── */
+@media (max-width: 767px) {
+    .login-pf body {
+        background: #0a0e1a;
+    }
+
+    #kc-header {
+        padding-left: 15px;
+        padding-right: 15px;
+        float: none;
+        text-align: center;
+    }
+
+    #kc-header-wrapper {
+        font-size: 10px;
+        font-weight: normal;
+        padding: 12px 60px 0 0;
+        letter-spacing: 1px;
+    }
+
+    div.kc-logo-text {
+        margin: 0 auto;
+        width: auto;
+        height: auto;
+    }
+
+    div.kc-logo-text span {
+        font-size: 20px;
+    }
+
+    #kc-form {
+        float: none;
+    }
+
+    #kc-info-wrapper {
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+        background-color: transparent;
+    }
+
+    .login-pf .container {
+        padding-top: 15px;
+        padding-bottom: 15px;
+    }
+
+    #kc-locale {
+        position: absolute;
+        width: 200px;
+        top: 20px;
+        right: 20px;
+        text-align: right;
+        z-index: 9999;
+    }
+
+    .login-pf-page .card-pf {
+        max-width: none;
+        margin-left: 0;
+        margin-right: 0;
+        padding-top: 0;
+        border-top: 0;
+        box-shadow: none;
+        background: transparent;
+        border: none;
+    }
+
+    .kc-social-grid {
+        grid-column-end: 12;
+        --pf-l-grid__item--GridColumnEnd: span 12;
+    }
+
+    .kc-social-grid .kc-social-icon-text {
+        left: -15px;
+    }
+}
+
+/* ── Altura de pantalla ── */
+@media (min-height: 646px) {
+    #kc-container-wrapper {
+        bottom: 12%;
+    }
+}
+
+@media (max-height: 645px) {
+    #kc-container-wrapper {
+        padding-top: 50px;
+        top: 20%;
+    }
+}
+/* </style> */

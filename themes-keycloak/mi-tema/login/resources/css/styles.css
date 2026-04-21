@@ -1,0 +1,135 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+
+
+/* 1. Ocultar el texto del nombre de usuario/email por ID y Clase */
+#kc-attempted-username, 
+.kc-username-wrapper, 
+#kc-username,
+.login-pf-header-description {
+    display: none !important;
+    visibility: hidden !important;
+    height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* 2. Ocultar el enlace de "No eres tú?" o "Reiniciar login" que suele acompañar al mail */
+#reset-login,
+.kc-login-tooltip,
+#kc-restart-login-link {
+    display: none !important;
+}
+
+/* 3. Ajuste por si Keycloak lo pone en el subtítulo del header */
+#kc-page-title + p, 
+header + p {
+    display: none !important;
+}
+
+body {
+  height: 100vh;
+  background: linear-gradient(135deg, #0f172a, #1e3a8a);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.card {
+  width: 360px;
+  padding: 40px;
+  border-radius: 20px;
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(15px);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  text-align: center;
+}
+
+h1 {
+  color: white;
+  margin-bottom: 5px;
+}
+
+.subtitle {
+  color: #94a3b8;
+  margin-bottom: 25px;
+  font-size: 14px;
+}
+
+input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border-radius: 10px;
+  border: 1px solid #334155;
+  background: #020617;
+  color: white;
+  transition: 0.2s;
+}
+
+input:focus {
+  outline: none;
+  border-color: #6366f1;
+  box-shadow: 0 0 0 2px rgba(99,102,241,0.3);
+}
+
+button {
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+  background: linear-gradient(90deg, #6366f1, #8b5cf6);
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+button:hover {
+  opacity: 0.9;
+}
+
+.divider {
+  margin: 25px 0;
+  color: #64748b;
+  font-size: 12px;
+  position: relative;
+}
+
+.divider span {
+  background: transparent;
+  padding: 0 10px;
+}
+
+.social-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 12px;
+  border-radius: 10px;
+  background: #020617;
+  border: 1px solid #334155;
+  color: white;
+  text-decoration: none;
+  transition: 0.2s;
+}
+
+.social-btn:hover {
+  background: #0f172a;
+}
+
+.social-btn img {
+  width: 20px;
+}

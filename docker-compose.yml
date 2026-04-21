@@ -1,3 +1,4 @@
+version: '3.8'
 services:
   nginx:
     image: nginx:1.23.3
@@ -65,6 +66,8 @@ services:
     image: quay.io/keycloak/keycloak:latest
     container_name: keycloak
     command: start-dev
+    depends_on:
+      - mysql
     expose:
       - 8080
     environment:
@@ -72,11 +75,22 @@ services:
       KEYCLOAK_ADMIN_PASSWORD: admin123
       KC_HTTP_ENABLED: true
       KC_HOSTNAME: auth.cernikiw3.chickenkiller.com
+      KC_HOSTNAME_URL: https://auth.cernikiw3.chickenkiller.com
+      KC_HOSTNAME_ADMIN_URL: https://auth.cernikiw3.chickenkiller.com
+
+
       KC_HOSTNAME_STRICT: false
       KC_HOSTNAME_STRICT_HTTPS: false
       KC_PROXY_HEADERS: xforwarded
+      KC_PROXY: edge
+
+      KC_DB: mysql
+      KC_DB_URL: jdbc:mysql://mysql:3306/keycloak_db
+      KC_DB_USERNAME: user
+      KC_DB_PASSWORD: ${MYSQLPWD}
     volumes:
       - keycloak_data:/opt/keycloak/data
+      - ./themes-keycloak:/opt/keycloak/themes
     restart: unless-stopped
 volumes:
   mysql-data:
