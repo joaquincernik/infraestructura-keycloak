@@ -1,67 +1,68 @@
 /* ============================================================
-   SOA 2026 — Keycloak Login Theme  v4
-   Fondo 100% CSS (sin imagen), card centrada, dos pantallas
+   SOA 2026 — Keycloak Login Theme  v5
+   CSS basado en la estructura real de los FTL de Keycloak
    ============================================================ */
 
-/* ── Reset Patternfly ── */
+
+
+/* ─────────────────────────────────────────────
+   RESET PATTERNFLY
+───────────────────────────────────────────── */
 .login-pf { background: none; }
 
-/* ── Fondo generado en CSS ── */
-.login-pf body {
+/* ─────────────────────────────────────────────
+   FONDO (100% CSS, sin imagen)
+───────────────────────────────────────────── */
+.login-pf-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background-color: #0b1220;
     background-image:
-        radial-gradient(ellipse 70% 55% at 15% 25%, rgba(24, 95, 165, 0.14) 0%, transparent 65%),
-        radial-gradient(ellipse 55% 45% at 85% 75%, rgba(83, 74, 183, 0.10) 0%, transparent 60%),
-        radial-gradient(ellipse 45% 55% at 65% 5%,  rgba(24, 95, 165, 0.07) 0%, transparent 55%),
-        radial-gradient(ellipse 35% 40% at 35% 90%, rgba(15, 110, 86, 0.05) 0%, transparent 50%);
-    height: 100%;
+        radial-gradient(ellipse 70% 50% at 18% 28%, rgba(24, 95, 165, 0.16) 0%, transparent 65%),
+        radial-gradient(ellipse 55% 45% at 82% 72%, rgba(83, 74, 183, 0.11) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 50% at 60%  5%, rgba(24, 95, 165, 0.07) 0%, transparent 55%);
     font-family: 'Inter', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
-    position: relative;
 }
 
-/* Grid sutil sobre el fondo */
-.login-pf body::before {
+/* Grilla sutil sobre el fondo */
+.login-pf-page::before {
     content: '';
     position: fixed;
     inset: 0;
-    background-image:
-        repeating-linear-gradient(0deg,   transparent, transparent 59px, rgba(55, 138, 221, 0.025) 60px),
-        repeating-linear-gradient(90deg,  transparent, transparent 59px, rgba(55, 138, 221, 0.025) 60px);
     pointer-events: none;
+    background-image:
+        repeating-linear-gradient(0deg,  transparent, transparent 59px, rgba(55,138,221,0.025) 60px),
+        repeating-linear-gradient(90deg, transparent, transparent 59px, rgba(55,138,221,0.025) 60px);
     z-index: 0;
 }
 
-/* ── Ocultar elementos no deseados ── */
-#kc-attempted-username { display: none !important; }
-.kc-username-wrapper   { display: none !important; }
-
-/* ── Centrar el contenedor ── */
-.login-pf .container {
-    padding-top: 0;
+/* ─────────────────────────────────────────────
+   CONTENEDOR PRINCIPAL
+   (Keycloak envuelve todo en .login-pf-page > div.login-pf)
+───────────────────────────────────────────── */
+.login-pf-page .login-pf {
+    position: relative;
+    z-index: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-    position: relative;
-    z-index: 1;
-}
-
-#kc-container-wrapper {
+    padding: 24px 16px;
     width: 100%;
-    max-width: 480px;
-    position: static;
-    bottom: auto;
-    top: auto;
+    max-width: 720px !important; 
 }
 
-/* ── Realm name (arriba del card) ── */
+/* ─────────────────────────────────────────────
+   REALM NAME  (#kc-header está FUERA del card)
+───────────────────────────────────────────── */
 #kc-header {
-    color: rgba(255, 255, 255, 0.18);
-    overflow: visible;
-    white-space: nowrap;
+    width: 100%;
     text-align: center;
+    color: rgba(255,255,255,0.2);
     margin-bottom: 10px;
+    overflow: visible;
+    white-space: normal;
 }
 
 #kc-header-wrapper {
@@ -69,533 +70,783 @@
     font-weight: 400;
     text-transform: uppercase;
     letter-spacing: 3px;
-    color: rgba(255, 255, 255, 0.18);
+    color: rgba(255,255,255,0.2);
     padding: 0;
-    white-space: normal;
-    text-align: center;
-    line-height: 1.4;
+    line-height: 1.5;
 }
 
-/* ── Logo ── */
-#kc-logo { width: 100%; }
-
-/* El logo va dentro del card-top (zona oscura superior) */
-#kc-logo-link {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 5px;
-    text-decoration: none;
-}
-
-.login-pf-page .login-pf-brand {
-    margin-top: 0;
-    max-width: none;
+/* ─────────────────────────────────────────────
+   CARD  (.card-pf)
+───────────────────────────────────────────── */
+.card-pf {
     width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 5px;
+    max-width: 720px !important;
+    background: #111a2e;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-top: 2px solid #185FA5;
+    border-radius: 12px;
+    padding: 0;
+    box-shadow:
+        0 20px 60px rgba(0,0,0,0.55),
+        0 0 0 1px rgba(255,255,255,0.04);
+    overflow: hidden;
+    margin: 0 auto;
 }
 
-div.kc-logo-text {
-    background-image: none;
-    height: auto;
-    width: auto;
-    margin: 0;
-    display: flex;
-    align-items: center;
-    gap: 10px;
+/* ─────────────────────────────────────────────
+   HEADER DEL CARD  (<header> dentro de .card-pf)
+   Contiene: selector de idioma + h1#kc-page-title
+   (o #kc-username cuando es pantalla de password)
+───────────────────────────────────────────── */
+.card-pf > header {
+    background: #0d1626;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    padding: 24px 32px 20px;
+    text-align: center;
 }
 
-/* Ícono shield via CSS */
-div.kc-logo-text::before {
+/* Logo SOA 2026 — generado con CSS antes del h1 */
+.card-pf > header::before {
     content: '';
-    display: inline-block;
-    width: 34px;
-    height: 34px;
+    display: block;
+    width: 36px;
+    height: 36px;
+    margin: 0 auto 8px;
     background-color: #185FA5;
-    border-radius: 8px;
+    border-radius: 9px;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath fill='white' d='M10 2L3 6v4c0 4.4 3 8.5 7 9.5 4-1 7-5.1 7-9.5V6L10 2zm0 3.2l4.5 2.5V10c0 2.8-1.9 5.4-4.5 6.3C7.4 15.4 5.5 12.8 5.5 10V7.7L10 5.2z'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
     background-position: center;
     background-size: 18px;
-    flex-shrink: 0;
 }
 
-div.kc-logo-text span {
-    display: inline-block;
-    font-size: 16px;
+/* Nombre de la empresa después del ícono */
+.card-pf > header::after {
+    content: 'SOA 2026';
+    display: block;
+    font-size: 13px;
     font-weight: 700;
-    color: #ffffff;
+    color: #fff;
     letter-spacing: 3px;
     text-transform: uppercase;
+    margin-top: 4px;
+    margin-bottom: 0;
 }
 
-/* ── Card principal ── */
-.card-pf {
-    margin: 0 auto;
-    background: #111a2e;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-top: 2px solid #185FA5;
-    border-radius: 12px;
-    padding: 0;
-    max-width: 480px;
-    box-shadow:
-        0 24px 64px rgba(0, 0, 0, 0.55),
-        0 0 0 1px rgba(255, 255, 255, 0.04);
-    overflow: hidden;
-}
-
-/* ── Zona del logo dentro del card ── */
-#kc-logo-link,
-.login-pf-page .login-pf-brand {
-    display: block;
-    background: #0d1626;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-    padding: 22px 32px 16px;
-    text-align: center;
-    width: 100%;
-    max-width: none;
-    margin: 0;
-}
-
-/* Tagline debajo del logo */
-#kc-logo-link::after,
-.login-pf-page .login-pf-brand::after {
-    content: 'Secure Access Portal';
-    display: block;
-    font-size: 10px;
-    color: rgba(255, 255, 255, 0.22);
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    margin-top: 5px;
-}
-
-/* ── Título de la pantalla ── */
+/* ─────────────────────────────────────────────
+   TÍTULO DE PANTALLA  (h1#kc-page-title)
+   "Sign in to your account" / "Log In"
+───────────────────────────────────────────── */
 h1#kc-page-title {
     font-size: 13px;
-    font-weight: 500;
-    color: rgba(255, 255, 255, 0.55);
-    text-align: center;
-    margin: 0;
-    padding: 20px 32px 4px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.45);
+    margin: 8px 0 0;
     letter-spacing: 0.2px;
 }
 
-/* ── Contenido del formulario ── */
+/* ─────────────────────────────────────────────
+   USERNAME / EMAIL EN PANTALLA DE PASSWORD
+   (#kc-username con label#kc-attempted-username + a#reset-login)
+───────────────────────────────────────────── */
+#kc-username {
+    margin: 10px 0 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+/* El email del usuario — lo mostramos como chip */
+#kc-attempted-username {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.5);
+    background: rgba(24,95,165,0.1);
+    border: 1px solid rgba(55,138,221,0.22);
+    border-radius: 20px;
+    padding: 4px 12px;
+    font-family: inherit;
+    cursor: default;
+}
+
+/* El ícono raro de "restart flow" — lo hacemos pequeño y discreto */
+#reset-login {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    color: rgba(255,255,255,0.25);
+    transition: color 0.15s, background 0.15s;
+    text-decoration: none;
+}
+
+#reset-login:hover {
+    color: #378ADD;
+    background: rgba(55,138,221,0.1);
+}
+
+/* Ocultar el tooltip text dentro del ícono (ya no es necesario) */
+#reset-login .kc-tooltip-text { display: none; }
+
+/* HR que aparece en login-password.ftl encima del campo password */
+#kc-form-wrapper > form > .no-bottom-margin > hr,
+.no-bottom-margin hr {
+    border: none;
+    border-top: 1px solid rgba(255,255,255,0.07);
+    margin: 0 0 16px;
+}
+
+/* ─────────────────────────────────────────────
+   CUERPO DEL FORMULARIO
+───────────────────────────────────────────── */
 #kc-content         { width: 100%; }
-#kc-content-wrapper { margin-top: 0; padding: 16px 32px 24px; }
+#kc-content-wrapper { padding: 20px 32px 24px; margin-top: 0; }
 #kc-form-wrapper    { margin-top: 0; }
 #kc-content-wrapper .row { margin-left: 0; margin-right: 0; }
 
-/* ── Labels ── */
-.pf-c-form__label-text {
+/* ─────────────────────────────────────────────
+   LABELS
+───────────────────────────────────────────── */
+.pf-c-form__label,
+.pf-c-form__label-text,
+label.pf-c-label {
     font-size: 10px !important;
     font-weight: 400 !important;
-    color: rgba(255, 255, 255, 0.32) !important;
+    color: rgba(255,255,255,0.32) !important;
     text-transform: uppercase !important;
     letter-spacing: 1px !important;
+    margin-bottom: 6px !important;
 }
 
-/* ── INPUTS: fix texto visible en fondo oscuro ── */
+/* ─────────────────────────────────────────────
+   INPUTS
+   Fix crítico: -webkit-text-fill-color para Chrome/Safari
+───────────────────────────────────────────── */
 .pf-c-form-control,
 input[type="text"],
 input[type="email"],
 input[type="password"],
 input[type="number"],
-select {
-    background: #1a2540 !important;
-    border: 1px solid rgba(255, 255, 255, 0.1) !important;
-    border-radius: 7px !important;
-    padding: 11px 13px !important;
-    font-size: 14px !important;
-    font-family: inherit !important;
-    color: #dde4f0 !important;
+select,
+textarea {
+    background:              #1a2540 !important;
+    border:                  1px solid rgba(255,255,255,0.1) !important;
+    border-radius:           7px !important;
+    padding:                 11px 13px !important;
+    font-size:               14px !important;
+    font-family:             inherit !important;
+    color:                   #dde4f0 !important;
     -webkit-text-fill-color: #dde4f0 !important;
-    caret-color: #378ADD !important;
-    outline: none !important;
-    box-shadow: none !important;
-    transition: border-color 0.2s, background 0.2s !important;
+    caret-color:             #378ADD !important;
+    outline:                 none !important;
+    box-shadow:              none !important;
+    transition:              border-color 0.2s, background 0.2s !important;
+    width:                   100%;
 }
 
 .pf-c-form-control:focus,
 input[type="text"]:focus,
 input[type="email"]:focus,
 input[type="password"]:focus {
-    border-color: #378ADD !important;
-    background: #1c2b4a !important;
-    box-shadow: none !important;
+    border-color:            #378ADD !important;
+    background:              #1c2b4a !important;
+    box-shadow:              none !important;
     -webkit-text-fill-color: #dde4f0 !important;
 }
 
+/* Placeholder */
 .pf-c-form-control::placeholder,
 input::placeholder {
-    color: rgba(255, 255, 255, 0.16) !important;
-    -webkit-text-fill-color: rgba(255, 255, 255, 0.16) !important;
+    color:                   rgba(255,255,255,0.16) !important;
+    -webkit-text-fill-color: rgba(255,255,255,0.16) !important;
 }
 
-/* Autofill: fuerza fondo y texto oscuro en Chrome/Safari */
+/* ─────────────────────────────────────────────
+   SEPARACIÓN VERTICAL DE COMPONENTES
+───────────────────────────────────────────── */
+/* Separa los inputs entre sí */
+.pf-c-form__group {
+    margin-bottom: 24px !important; 
+}
+
+/* Evita que el último input empuje de más si no es necesario */
+.pf-c-form__group.no-bottom-margin { 
+    margin-bottom: 0 !important; 
+}
+
+/* Separa el botón de Login (Sign In) de las opciones de arriba */
+#kc-form-buttons { 
+    margin-top: 32px !important; 
+}
+
+/* Separa la sección de redes sociales del botón de login */
+#kc-social-providers {
+    margin-top: 24px !important;
+}
+
+
+/* Autofill de Chrome/Safari — fuerza fondo oscuro */
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
-    -webkit-box-shadow: 0 0 0 100px #1a2540 inset !important;
+    -webkit-box-shadow:      0 0 0 100px #1a2540 inset !important;
     -webkit-text-fill-color: #dde4f0 !important;
-    caret-color: #378ADD !important;
-    transition: background-color 9999s ease-in-out 0s !important;
+    caret-color:             #378ADD !important;
+    transition:              background-color 9999s ease-in-out 0s !important;
 }
 
 textarea.pf-c-form-control { height: auto; }
 
-/* ── Botón ojo (mostrar password) ── */
+/* ─────────────────────────────────────────────
+   INPUT GROUP (input + botón ojo)
+   .pf-c-input-group envuelve input + button en password
+───────────────────────────────────────────── */
+.pf-c-input-group {
+    display: flex;
+    align-items: stretch;
+}
+
+.pf-c-input-group .pf-c-form-control,
+.pf-c-input-group input[type="password"],
+.pf-c-input-group input[type="text"] {
+    border-radius: 7px 0 0 7px !important;
+    border-right:  none !important;
+    flex: 1;
+}
+
+/* Botón ojo (mostrar/ocultar contraseña) */
 .pf-c-button.pf-m-control {
-    background: #1a2540 !important;
-    border: 1px solid rgba(255, 255, 255, 0.1) !important;
-    border-left: none !important;
+    background:    #1a2540 !important;
+    border:        1px solid rgba(255,255,255,0.1) !important;
+    border-left:   none !important;
     border-radius: 0 7px 7px 0 !important;
-    color: rgba(255, 255, 255, 0.32) !important;
-    padding: 0 12px !important;
+    color:         rgba(255,255,255,0.3) !important;
+    padding:       0 13px !important;
+    cursor:        pointer;
+    display:       flex;
+    align-items:   center;
+    justify-content: center;
+    transition:    color 0.15s, background 0.15s;
 }
 
 .pf-c-button.pf-m-control:hover {
     background: #1c2b4a !important;
-    color: #378ADD !important;
+    color:      #378ADD !important;
 }
 
-/* Input cuando hay botón ojo: quitar borde derecho redondeado */
-.pf-c-input-group .pf-c-form-control {
-    border-radius: 7px 0 0 7px !important;
-    border-right: none !important;
-}
-
-/* ── Botón principal ── */
+/* ─────────────────────────────────────────────
+   BOTÓN PRINCIPAL (Sign In / Log In)
+───────────────────────────────────────────── */
 .pf-c-button.pf-m-primary,
-#kc-login,
-.btn-primary {
-    width: 100% !important;
-    background: #185FA5 !important;
-    border: none !important;
-    border-radius: 7px !important;
-    padding: 12px 20px !important;
-    font-size: 14px !important;
-    font-weight: 500 !important;
-    color: #ffffff !important;
-    letter-spacing: 0.3px !important;
-    cursor: pointer !important;
-    transition: background 0.2s !important;
-    font-family: inherit !important;
+input[type="submit"]#kc-login,
+input.pf-m-primary {
+    width:           100% !important;
+    display:         block !important;
+    background:      #185FA5 !important;
+    border:          none !important;
+    border-radius:   7px !important;
+    padding:         12px 20px !important;
+    font-size:       14px !important;
+    font-weight:     500 !important;
+    color:           #ffffff !important;
+    letter-spacing:  0.3px !important;
+    cursor:          pointer !important;
+    transition:      background 0.2s !important;
+    font-family:     inherit !important;
+    text-align:      center !important;
+    -webkit-appearance: none !important;
 }
 
 .pf-c-button.pf-m-primary:hover,
-#kc-login:hover,
-.btn-primary:hover {
+input[type="submit"]#kc-login:hover,
+input.pf-m-primary:hover {
     background: #1f72c4 !important;
 }
 
-/* ── Botón secundario (Google / SSO) ── */
+/* ─────────────────────────────────────────────
+   BOTÓN SECUNDARIO (Google / SSO / otros)
+───────────────────────────────────────────── */
 .pf-c-button.pf-m-secondary,
 .btn-default {
-    width: 100% !important;
-    background: rgba(255, 255, 255, 0.03) !important;
-    border: 1px solid rgba(255, 255, 255, 0.09) !important;
+    width:         100% !important;
+    background:    rgba(255,255,255,0.03) !important;
+    border:        1px solid rgba(255,255,255,0.09) !important;
     border-radius: 7px !important;
-    padding: 10px 16px !important;
-    font-size: 13px !important;
-    color: rgba(255, 255, 255, 0.48) !important;
-    cursor: pointer !important;
-    font-family: inherit !important;
-    transition: background 0.2s, border-color 0.2s !important;
+    padding:       10px 16px !important;
+    font-size:     13px !important;
+    color:         rgba(255,255,255,0.48) !important;
+    cursor:        pointer !important;
+    font-family:   inherit !important;
+    transition:    background 0.2s, border-color 0.2s !important;
 }
 
 .pf-c-button.pf-m-secondary:hover,
 .btn-default:hover {
-    background: rgba(255, 255, 255, 0.06) !important;
-    border-color: rgba(255, 255, 255, 0.15) !important;
+    background:   rgba(255,255,255,0.06) !important;
+    border-color: rgba(255,255,255,0.15) !important;
 }
 
-/* ── Links ── */
-.login-pf a,
-.login-pf a:visited { color: #378ADD; text-decoration: none; transition: color 0.15s; }
-.login-pf a:hover   { color: #85B7EB; }
+/* ─────────────────────────────────────────────
+   LINKS
+───────────────────────────────────────────── */
+.login-pf-page a,
+.login-pf-page a:visited {
+    color: #378ADD;
+    text-decoration: none;
+    transition: color 0.15s;
+}
 
-/* ── Opciones del form (checkbox / forgot) ── */
+.login-pf-page a:hover { color: #85B7EB; }
+
+/* ─────────────────────────────────────────────
+   OPCIONES DEL FORM (checkbox recordarme + forgot password)
+───────────────────────────────────────────── */
+#kc-form-options {
+    display: flex;
+    align-items: center;
+}
+
 #kc-form-options .checkbox {
     margin-top: 0;
-    color: rgba(255, 255, 255, 0.28);
+    color: rgba(255,255,255,0.28);
     font-size: 12px;
+}
+
+#kc-form-options .checkbox label {
+    display: flex !important;
+    align-items: center !important;
+    gap: 7px !important;
+    font-size: 12px !important;
+    color: rgba(255,255,255,0.3) !important;
+    text-transform: none !important;
+    letter-spacing: 0 !important;
+    cursor: pointer;
+}
+
+#kc-form-options .checkbox input[type="checkbox"] {
+    width:   14px !important;
+    height:  14px !important;
+    padding: 0 !important;
+    border:  1px solid rgba(255,255,255,0.2) !important;
+    border-radius: 3px !important;
+    background: #1a2540 !important;
+    accent-color: #378ADD;
+    flex-shrink: 0;
+    -webkit-text-fill-color: unset !important;
 }
 
 #kc-form-options span { display: block; }
-#kc-form-buttons      { margin-top: 20px; }
 
-.card-pf form.form-actions .btn { float: right; margin-left: 10px; }
-.login-pf-page .btn-primary     { margin-top: 0; }
-.no-bottom-margin               { margin-bottom: 0; }
+/* Forgot password link */
+.pf-c-form__helper-text,
+#kc-form-options a,
+#kc-form-setting a {
+    font-size: 12px !important;
+    color: #378ADD !important;
+}
 
-/* ── Info / pie del card (New user? Register) ── */
+/* ─────────────────────────────────────────────
+   BOTONES DEL FORM (contenedor)
+───────────────────────────────────────────── */
+#kc-form-buttons { margin-top: 20px; }
+
+.pf-c-form__group.no-bottom-margin { margin-bottom: 0; }
+
+/* ─────────────────────────────────────────────
+   PIE DEL CARD — "New user? Register"
+   (#kc-info > #kc-info-wrapper)
+───────────────────────────────────────────── */
 #kc-info { margin: 0; }
 
 #kc-info-wrapper {
+    padding:      12px 32px;
+    background:   rgba(0,0,0,0.2);
+    border-top:   1px solid rgba(255,255,255,0.06);
+    text-align:   center;
+    font-size:    12px;
+    color:        rgba(255,255,255,0.22);
+}
+
+#kc-registration { margin-bottom: 0; text-align: center; }
+
+.login-pf-page .login-pf-signup {
     font-size: 12px;
-    padding: 12px 32px;
-    background: rgba(0, 0, 0, 0.22);
-    border-top: 1px solid rgba(255, 255, 255, 0.06);
-    color: rgba(255, 255, 255, 0.22);
+    color: rgba(255,255,255,0.22);
+}
+
+/* ─────────────────────────────────────────────
+   SOCIAL PROVIDERS (Google, etc.)
+   Vienen en #kc-social-providers
+───────────────────────────────────────────── */
+#kc-social-providers {
+    margin-top: 4px;
+}
+
+#kc-social-providers hr {
+    border: none;
+    border-top: 1px solid rgba(255,255,255,0.07);
+    margin: 16px 0 12px;
+}
+
+#kc-social-providers h2,
+#kc-social-providers h4 {
+    font-size: 10px;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: rgba(255,255,255,0.2);
     text-align: center;
+    margin-bottom: 10px;
 }
 
-#kc-registration         { margin-bottom: 0; text-align: center; }
-.login-pf-page .login-pf-signup { font-size: 12px; color: rgba(255, 255, 255, 0.22); }
-
-/* ── Términos ── */
-#kc-terms-text              { margin-bottom: 20px; color: rgba(255,255,255,0.38); font-size: 13px; }
-#kc-registration-terms-text { max-height: 100px; overflow-y: auto; overflow-x: hidden; margin: 5px; }
-
-/* ── Alertas ── */
-.pf-c-alert__title { font-size: var(--pf-global--FontSize--xs); }
-
-.pf-c-alert.pf-m-danger {
-    background: rgba(162, 45, 45, 0.15) !important;
-    border: 1px solid rgba(162, 45, 45, 0.28) !important;
-    border-radius: 7px !important;
-    color: #F09595 !important;
-    margin-bottom: 14px;
+/* Lista de providers */
+.pf-c-form__group ul,
+#kc-social-providers ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
 }
 
-.pf-c-alert.pf-m-success {
-    background: rgba(15, 110, 86, 0.15) !important;
-    border: 1px solid rgba(15, 110, 86, 0.28) !important;
-    border-radius: 7px !important;
-    margin-bottom: 14px;
+/* Botón de cada provider */
+.pf-c-form__group ul a,
+#kc-social-providers ul a,
+.kc-social-item a,
+a[id^="social-"] {
+    display:         flex !important;
+    align-items:     center !important;
+    justify-content: center !important;
+    gap:             8px !important;
+    width:           100% !important;
+    padding:         10px 16px !important;
+    background:      rgba(255,255,255,0.03) !important;
+    border:          1px solid rgba(255,255,255,0.09) !important;
+    border-radius:   7px !important;
+    font-size:       13px !important;
+    color:           rgba(255,255,255,0.5) !important;
+    text-decoration: none !important;
+    transition:      background 0.2s, border-color 0.2s !important;
+    -webkit-text-fill-color: rgba(255,255,255,0.5) !important;
 }
 
-/* ── Username / email en pantalla de password ── */
-#kc-username {
+a[id^="social-"]:hover {
+    background:   rgba(255,255,255,0.06) !important;
+    border-color: rgba(255,255,255,0.15) !important;
+    color:        rgba(255,255,255,0.7) !important;
+    -webkit-text-fill-color: rgba(255,255,255,0.7) !important;
+}
+
+/* Ícono dentro del botón social */
+a[id^="social-"] i,
+a[id^="social-"] .pf-c-icon {
+    font-size: 16px;
+    width: 18px;
     text-align: center;
-    padding: 12px 32px 0;
-    margin-bottom: 0;
+    flex-shrink: 0;
 }
 
-/* Ocultamos el span del email que Patternfly renderiza raro */
-#kc-attempted-username {
+
+/* ─────────────────────────────────────────────
+   BOTÓN DE GOOGLE OFICIAL
+───────────────────────────────────────────── */
+a#social-google {
+    background-color: #ffffff !important; /* Fondo blanco clásico */
+    border: 1px solid #dadce0 !important;
+    color: #3c4043 !important; /* Texto gris oscuro */
+    font-weight: 500 !important;
+    -webkit-text-fill-color: #3c4043 !important; /* Anula tu color de texto oscuro */
+    position: relative;
+    justify-content: center !important;
+}
+
+a#social-google:hover {
+    background-color: #f8f9fa !important;
+    border-color: #d2e3fc !important;
+    color: #174ea6 !important;
+    -webkit-text-fill-color: #174ea6 !important;
+}
+
+/* Ocultamos el ícono de FontAwesome/Patternfly genérico que trae Keycloak */
+a#social-google i,
+a#social-google .kc-social-provider-logo,
+a#social-google .pf-c-icon {
     display: none !important;
 }
 
-/* El enlace de volver que acompaña al username */
-#kc-username .kc-username-wrapper,
-#kc-username a[href] {
-    display: inline-block;
-    font-size: 11px;
-    color: rgba(255, 255, 255, 0.28);
+/* Inyectamos el Logo de Google "G" multicolor oficial en formato SVG */
+a#social-google::before {
+    content: '';
+    position: absolute;
+    left: 16px; /* Posición del logo a la izquierda */
+    top: 50%;
+    transform: translateY(-50%);
+    width: 18px;
+    height: 18px;
+    /* SVG Data URI del logo de Google */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath fill='%23EA4335' d='M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z'/%3E%3Cpath fill='%234285F4' d='M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z'/%3E%3Cpath fill='%23FBBC05' d='M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z'/%3E%3Cpath fill='%2334A853' d='M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z'/%3E%3C/svg%3E");
+    background-size: contain;
+    background-repeat: no-repeat;
 }
 
-/* ── Instrucciones ── */
-p.instruction {
-    margin: 5px 0 14px;
+/* ─────────────────────────────────────────────
+   ALERTAS / MENSAJES DE ERROR
+───────────────────────────────────────────── */
+.pf-c-alert {
+    border-radius: 7px !important;
+    margin-bottom: 16px !important;
+    padding: 10px 14px !important;
+}
+
+.pf-c-alert.pf-m-danger {
+    background:   rgba(162,45,45,0.14) !important;
+    border:       1px solid rgba(162,45,45,0.28) !important;
+    color:        #F09595 !important;
+}
+
+.pf-c-alert.pf-m-warning {
+    background:   rgba(160,120,0,0.14) !important;
+    border:       1px solid rgba(160,120,0,0.28) !important;
+    color:        #e8c96a !important;
+}
+
+.pf-c-alert.pf-m-success {
+    background:   rgba(15,110,86,0.14) !important;
+    border:       1px solid rgba(15,110,86,0.28) !important;
+    color:        #6ee7b7 !important;
+}
+
+.pf-c-alert.pf-m-info {
+    background:   rgba(24,95,165,0.14) !important;
+    border:       1px solid rgba(24,95,165,0.28) !important;
+    color:        #85B7EB !important;
+}
+
+.pf-c-alert__title { font-size: 13px !important; font-weight: 500 !important; }
+
+/* Mensajes de error bajo inputs */
+.pf-c-form__helper-text.pf-m-error,
+.kcInputErrorMessageClass,
+#input-error,
+#input-error-username,
+#input-error-password {
+    font-size:   12px !important;
+    color:       #F09595 !important;
+    margin-top:  4px !important;
+    display:     block !important;
+}
+
+/* ─────────────────────────────────────────────
+   TÉRMINOS Y CONDICIONES
+───────────────────────────────────────────── */
+#kc-terms-text {
+    margin-bottom: 20px;
+    color: rgba(255,255,255,0.38);
     font-size: 13px;
-    color: rgba(255, 255, 255, 0.38);
-    text-align: center;
+    max-height: 140px;
+    overflow-y: auto;
+    padding: 12px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 7px;
 }
 
-/* ── Botón volver ── */
-#kc-back {
-    margin-top: 8px;
-    color: rgba(255, 255, 255, 0.32) !important;
-    font-size: 12px;
-    display: block;
-    text-align: center;
+#kc-registration-terms-text {
+    max-height: 100px;
+    overflow-y: auto;
+    margin: 5px;
 }
 
-/* ── Selector de idioma ── */
+/* ─────────────────────────────────────────────
+   SELECTOR DE IDIOMA
+───────────────────────────────────────────── */
+#kc-locale { position: relative; text-align: right; z-index: 9999; margin-bottom: 8px; }
+
 #kc-locale ul {
-    background-color: #111a2e;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background:  #111a2e;
+    border:      1px solid rgba(255,255,255,0.1);
     border-radius: 8px;
-    display: none;
-    top: 20px;
-    min-width: 130px;
-    padding: 4px 0;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+    display:     none;
+    position:    absolute;
+    top:         24px;
+    right:       0;
+    min-width:   130px;
+    padding:     4px 0;
+    box-shadow:  0 8px 24px rgba(0,0,0,0.5);
+    list-style:  none;
 }
 
 #kc-locale-dropdown          { display: inline-block; }
 #kc-locale-dropdown:hover ul { display: block; }
 
 #kc-locale-dropdown a {
-    color: rgba(255,255,255,0.42);
-    font-size: 12px;
+    color:   rgba(255,255,255,0.42) !important;
+    font-size: 12px !important;
     padding: 6px 14px;
     display: block;
+    -webkit-text-fill-color: rgba(255,255,255,0.42) !important;
 }
 
-#kc-locale-dropdown a:hover { color: #378ADD; background: rgba(55,138,221,0.08); }
+#kc-locale-dropdown a:hover {
+    color:   #378ADD !important;
+    background: rgba(55,138,221,0.08);
+    -webkit-text-fill-color: #378ADD !important;
+}
 
 #kc-locale-dropdown button {
-    background: none; border: none; padding: 0; cursor: pointer;
-    color: rgba(255,255,255,0.28); font-size: 12px; font-family: inherit;
+    background:  none;
+    border:      none;
+    padding:     0;
+    cursor:      pointer;
+    color:       rgba(255,255,255,0.28);
+    font-size:   11px;
+    font-family: inherit;
 }
 
-button#kc-current-locale-link::after { content: "\2c5"; margin-left: var(--pf-global--spacer--xs); }
-
-/* ── Social / SSO ── */
-.kc-social-links    { margin-top: 16px; }
-.kc-social-links li { width: 100%; }
-
-.kc-social-provider-logo {
-    font-size: 16px; width: 24px; height: 20px; float: left;
-    color: rgba(255,255,255,0.38);
+button#kc-current-locale-link::after {
+    content: " ▾";
+    font-size: 10px;
 }
 
-.kc-social-item    { margin-bottom: 8px; font-size: 13px; text-align: center; }
-.kc-social-section { text-align: center; }
-.kc-social-section hr { margin-bottom: 12px; border-color: rgba(255,255,255,0.07); }
-.kc-social-gray    { color: rgba(255,255,255,0.2); }
-.kc-social-gray h2 { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; }
-
-.kc-social-grid {
-    display: grid;
-    grid-column-gap: 10px; grid-row-gap: 6px;
-    grid-column-end: span 6;
-    --pf-l-grid__item--GridColumnEnd: span 6;
-}
-
-.kc-social-provider-name { position: relative; }
-.kc-social-icon-text     { left: -15px; }
-
-/* ── TOTP ── */
-.subtitle { text-align: right; margin-top: 24px; color: rgba(255,255,255,0.26); font-size: 12px; }
+/* ─────────────────────────────────────────────
+   TOTP
+───────────────────────────────────────────── */
+.subtitle { text-align: right; margin-top: 24px; color: rgba(255,255,255,0.25); font-size: 12px; }
 .required { color: #E24B4A; }
 
 ol#kc-totp-settings       { margin: 0; padding-left: 20px; color: rgba(255,255,255,0.5); }
 ul#kc-totp-supported-apps { margin-bottom: 10px; color: rgba(255,255,255,0.5); }
 
 #kc-totp-secret-qr-code {
-    max-width: 150px; max-height: 150px; border-radius: 8px;
-    border: 1px solid rgba(255,255,255,0.1);
-    padding: 8px; background: rgba(255,255,255,0.92);
+    max-width: 150px; max-height: 150px;
+    border-radius: 8px; border: 1px solid rgba(255,255,255,0.1);
+    padding: 8px; background: rgba(255,255,255,0.95);
+    display: block; margin: 12px auto;
 }
 
 #kc-totp-secret-key {
-    background: rgba(55,138,221,0.08); color: #85B7EB;
-    font-size: 14px; padding: 10px 14px; border-radius: 7px;
-    border: 1px solid rgba(55,138,221,0.2);
-    font-family: 'Courier New', monospace; letter-spacing: 1px; text-align: center;
+    background:  rgba(55,138,221,0.08);
+    color:       #85B7EB;
+    font-size:   13px;
+    padding:     10px 14px;
+    border-radius: 7px;
+    border:      1px solid rgba(55,138,221,0.2);
+    font-family: 'Courier New', monospace;
+    letter-spacing: 1px;
+    text-align:  center;
+    word-break:  break-all;
 }
 
-/* ── WebAuthn ── */
-#kc-webauthn-settings-form                      { padding-top: 8px; }
-#kc-form-webauthn .select-auth-box-parent       { pointer-events: none; }
-#kc-form-webauthn .select-auth-box-desc         { color: rgba(255,255,255,0.36); }
-#kc-form-webauthn .select-auth-box-headline     { color: #378ADD; }
-#kc-form-webauthn .select-auth-box-icon         { flex: 0 0 3em; }
-#kc-form-webauthn .select-auth-box-icon-properties { margin-top: 10px; font-size: 1.8em; color: rgba(255,255,255,0.38); }
-#kc-form-webauthn .select-auth-box-icon-properties.unknown-transport-class { margin-top: 3px; }
-#kc-form-webauthn .pf-l-stack__item { margin: -1px 0; }
+/* ─────────────────────────────────────────────
+   WEBAUTHN / SELECT AUTH
+───────────────────────────────────────────── */
+#kc-webauthn-settings-form { padding-top: 8px; }
 
-.select-auth-box-arrow    { display: flex; align-items: center; margin-right: 2rem; color: rgba(255,255,255,0.2); }
-.select-auth-box-icon     { display: flex; flex: 0 0 2em; justify-content: center; margin-right: 1rem; margin-left: 3rem; }
-.select-auth-box-parent   {
-    border-top: 1px solid rgba(255,255,255,0.07); padding: 1rem 0;
-    cursor: pointer; text-align: left; align-items: unset;
-    background-color: unset; border-right: unset; border-bottom: unset; border-left: unset;
-}
-.select-auth-box-parent:hover { background-color: rgba(55,138,221,0.05); }
-.select-auth-container    { padding-bottom: 0 !important; }
-.select-auth-box-headline { font-size: var(--pf-global--FontSize--md); color: #378ADD; font-weight: 500; }
-.select-auth-box-desc     { font-size: var(--pf-global--FontSize--sm); color: rgba(255,255,255,0.36); }
-.select-auth-box-paragraph{ text-align: center; font-size: var(--pf-global--FontSize--md); margin-bottom: 5px; color: rgba(255,255,255,0.48); }
-
-/* ── OAuth ── */
-#kc-oauth h3    { margin-top: 0; color: rgba(255,255,255,0.7); }
-#kc-oauth ul    { list-style: none; padding: 0; margin: 0; }
-#kc-oauth ul li { border-top: 1px solid rgba(255,255,255,0.07); font-size: 12px; padding: 10px 0; color: rgba(255,255,255,0.44); }
-#kc-oauth ul li:first-of-type { border-top: 0; }
-#kc-oauth .kc-role { display: inline-block; width: 50%; }
-
-/* ── Código ── */
-#kc-code textarea { width: 100%; height: 8em; }
-
-/* ── Tooltip ── */
-.kc-login-tooltip { position: relative; display: inline-block; }
-.kc-login-tooltip .kc-tooltip-text {
-    top: -3px; left: 160%; background-color: #111a2e;
-    border: 1px solid rgba(55,138,221,0.28); visibility: hidden;
-    color: rgba(255,255,255,0.72); min-width: 140px; text-align: center;
-    border-radius: 6px; box-shadow: 0 4px 16px rgba(0,0,0,0.5);
-    padding: 6px 10px; font-size: 12px; position: absolute;
-    opacity: 0; transition: opacity 0.3s;
-}
-.kc-login-tooltip:hover .kc-tooltip-text { visibility: visible; opacity: 1; }
-.kc-login-tooltip .kc-tooltip-text::after {
-    content: " "; position: absolute; top: 14px; right: 100%; margin-top: -5px;
-    border-width: 5px; border-style: solid;
-    border-color: transparent #111a2e transparent transparent;
+.select-auth-box-parent {
+    border-top:  1px solid rgba(255,255,255,0.07);
+    padding:     1rem 0;
+    cursor:      pointer;
+    background:  unset;
+    border-right: unset; border-bottom: unset; border-left: unset;
+    text-align:  left;
+    width:       100%;
 }
 
-/* ── Varios ── */
-#certificate_subjectDN { overflow-wrap: break-word; color: rgba(255,255,255,0.5); }
+.select-auth-box-parent:hover { background: rgba(55,138,221,0.05); }
+.select-auth-box-headline     { font-size: 14px; color: #378ADD; font-weight: 500; }
+.select-auth-box-desc         { font-size: 12px; color: rgba(255,255,255,0.36); }
 
-#kc-form-login div.form-group:last-of-type,
-#kc-register-form div.form-group:last-of-type,
-#kc-update-profile-form div.form-group:last-of-type,
-#kc-update-email-form div.form-group:last-of-type { margin-bottom: 0; }
+/* ─────────────────────────────────────────────
+   RECOVERY CODES
+───────────────────────────────────────────── */
+.kc-recovery-codes-warning { margin-bottom: 20px; }
 
-.login-pf-page.login-pf-page-accounts { margin-left: auto; margin-right: auto; }
-.login-pf-page .list-view-pf .list-group-item   { border-bottom: 1px solid rgba(255,255,255,0.07); }
-.login-pf-page .list-view-pf-description        { width: 100%; }
-
-/* ── Recovery codes ── */
-.kc-recovery-codes-warning { margin-bottom: 24px; }
-.kc-recovery-codes-warning .pf-c-alert__description p { font-size: 0.875rem; }
 .kc-recovery-codes-list {
-    list-style: none; columns: 2; margin: 16px 0; padding: 16px;
-    border: 1px solid rgba(255,255,255,0.09); border-radius: 8px;
+    list-style: none; columns: 2;
+    margin: 14px 0; padding: 14px;
+    border: 1px solid rgba(255,255,255,0.09);
+    border-radius: 8px;
     background: rgba(255,255,255,0.03);
 }
-.kc-recovery-codes-list li { margin-bottom: 8px; font-size: 12px; color: rgba(255,255,255,0.5); font-family: 'Courier New', monospace; }
-.kc-recovery-codes-list li span { color: rgba(255,255,255,0.22); width: 18px; text-align: right; display: inline-block; margin-right: 4px; }
-.kc-recovery-codes-actions { margin-bottom: 20px; }
-.kc-recovery-codes-actions button { padding-left: 0; }
-.kc-recovery-codes-actions button i { margin-right: 8px; }
-.kc-recovery-codes-confirmation { align-items: baseline; margin-bottom: 16px; }
 
-/* ── Desktop ── */
-@media (min-width: 768px) {
-    .login-pf .container { padding-right: 0; }
-    #kc-locale { position: relative; text-align: right; z-index: 9999; }
+.kc-recovery-codes-list li {
+    margin-bottom: 8px; font-size: 12px;
+    color: rgba(255,255,255,0.5);
+    font-family: 'Courier New', monospace;
 }
 
-/* ── Móvil ── */
+.kc-recovery-codes-list li span {
+    color: rgba(255,255,255,0.22); width: 18px;
+    text-align: right; display: inline-block; margin-right: 4px;
+}
+
+.kc-recovery-codes-actions        { margin-bottom: 18px; }
+.kc-recovery-codes-actions button  { padding-left: 0; }
+.kc-recovery-codes-actions button i{ margin-right: 8px; }
+.kc-recovery-codes-confirmation    { align-items: baseline; margin-bottom: 14px; }
+
+/* ─────────────────────────────────────────────
+   MISCELÁNEOS
+───────────────────────────────────────────── */
+#certificate_subjectDN { overflow-wrap: break-word; color: rgba(255,255,255,0.5); }
+
+#kc-form-login div.pf-c-form__group:last-of-type,
+#kc-register-form div.pf-c-form__group:last-of-type { margin-bottom: 0; }
+
+.no-bottom-margin { margin-bottom: 0; }
+
+#kc-back {
+    margin-top: 8px;
+    font-size: 12px;
+    display: block;
+    text-align: center;
+    color: rgba(255,255,255,0.3) !important;
+}
+
+p.instruction {
+    margin: 0 0 14px;
+    font-size: 13px;
+    color: rgba(255,255,255,0.38);
+    text-align: center;
+}
+
+/* ─────────────────────────────────────────────
+   RESPONSIVE — MÓVIL
+───────────────────────────────────────────── */
 @media (max-width: 767px) {
-    .login-pf body { background-color: #0b1220; }
+    .login-pf-page {
+        align-items: flex-start;
+        background-attachment: scroll;
+    }
 
-    #kc-header { padding: 0 15px; float: none; text-align: center; margin-bottom: 8px; }
-    #kc-header-wrapper { font-size: 8px; padding: 12px 0 4px; }
+    .login-pf-page .container {
+        padding: 20px 12px;
+        max-width: 100%;
+    }
 
-    div.kc-logo-text span { font-size: 14px; }
+    .card-pf {
+        border-radius: 10px;
+        max-width: 100%;
+    }
 
-    #kc-form { float: none; }
-    #kc-info-wrapper { background-color: transparent; }
+    #kc-content-wrapper { padding: 16px 20px 20px; }
 
-    .login-pf .container { padding: 16px 12px; min-height: 100vh; }
+    .card-pf > header { padding: 20px 20px 16px; }
 
-    #kc-container-wrapper { max-width: 100%; }
-
-    .login-pf-page .card-pf { max-width: 100%; margin: 0; border-radius: 10px; }
-
-    #kc-content-wrapper { padding: 12px 20px 20px; }
-    h1#kc-page-title    { padding: 16px 20px 2px; }
-    #kc-logo-link, .login-pf-page .login-pf-brand { padding: 16px 20px 12px; }
-    #kc-info-wrapper    { padding: 11px 20px; }
-    #kc-username        { padding: 10px 20px 0; }
-
-    #kc-locale { position: absolute; width: 180px; top: 14px; right: 14px; text-align: right; z-index: 9999; }
-
-    .kc-social-grid { grid-column-end: 12; --pf-l-grid__item--GridColumnEnd: span 12; }
-    .kc-social-grid .kc-social-icon-text { left: -15px; }
+    #kc-info-wrapper { padding: 11px 20px; }
 }
 
 @media (max-height: 645px) {
-    .login-pf .container { align-items: flex-start; padding-top: 20px; }
+    .login-pf-page {
+        align-items: flex-start;
+    }
+    .login-pf-page .container {
+        padding-top: 20px;
+    }
 }
