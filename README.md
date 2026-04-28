@@ -56,6 +56,7 @@ Se presenta la siguiente infraestructura de despliegue
     ├── conf
     └── webapps
 
+```
 # Backup del realm
 Para exportar el realm se ejecuto el siguiente comadno
 ```docker exec -it keycloak /opt/keycloak/bin/kc.sh export --realm edu-spring-realm-dev --file /opt/keycloak/edu-spring-realm-export.json```
