@@ -71,8 +71,8 @@ services:
     expose:
       - 8080
     environment:
-      KEYCLOAK_ADMIN: admin
-      KEYCLOAK_ADMIN_PASSWORD: admin123
+      KEYCLOAK_ADMIN: ${KEYCLOAK_ADMIN}
+      KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
       KC_HTTP_ENABLED: true
       KC_HOSTNAME: auth.cernikiw3.chickenkiller.com
       KC_HOSTNAME_URL: https://auth.cernikiw3.chickenkiller.com
@@ -86,7 +86,7 @@ services:
 
       KC_DB: mysql
       KC_DB_URL: jdbc:mysql://mysql:3306/keycloak_db
-      KC_DB_USERNAME: user
+      KC_DB_USERNAME: ${KC_DB_USERNAME}
       KC_DB_PASSWORD: ${MYSQLPWD}
     volumes:
       - keycloak_data:/opt/keycloak/data
