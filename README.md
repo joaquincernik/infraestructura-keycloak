@@ -1,4 +1,6 @@
-#1. Infraestructura del trabajo
+# Infraestructura del trabajo
+Se presenta la siguiente infraestructura de despliegue
+```
 .
 ├── README.md
 ├── backup-keycloak
@@ -54,37 +56,38 @@
     ├── conf
     └── webapps
 
-#2. Realizacion del backup
-docker exec -it keycloak /opt/keycloak/bin/kc.sh export --realm edu-spring-realm-dev --file /opt/keycloak/edu-spring-realm-export.json
+# Backup del realm
+Para exportar el realm se ejecuto el siguiente comadno
+```docker exec -it keycloak /opt/keycloak/bin/kc.sh export --realm edu-spring-realm-dev --file /opt/keycloak/edu-spring-realm-export.json```
 
-Este archivo va a contener el backup listo para ejecutar
+El archivo de backup fue copiado dentro de la carpeta `backup-keycloak`
+```
 backup-keycloak/
 └── edu-spring-realm-export.json
+```
 
--rw-rw-r--  1 user user   148 Apr 21 14:18 .env
--rw-rw-r--  1 user user    49 Apr 28 17:36 .env.example
--rw-r--r--  1 user user 97572 Apr 21 14:19 edu-spring-realm-export.json
 
-#3. Configuracion del ambiente de docker
-Se presenta el siguiente archivo .env.enxample, el cual tendra que ser modificado con las credenciales correctas en un arcihvo .env a la hora de correr el contenedor
-
+# Configuracion del ambiente de docker
+Se presenta el siguiente archivo `.env.enxample`, el cual tendra que ser modificado con las credenciales correctas en un arcihvo `.env` a la hora de correr el contenedor
+```
 TZ=America/Buenos_Aires
 MYSQLROOTPWD=password
 MYSQLPWD=password
 KEYCLOAK_ADMIN=admin
 KEYCLOAK_ADMIN_PASSWORD=admin
 KC_DB_USERNAME=user
-
-Adentro de la carpeta de backup tambien se encuentra un archivo .env.example en el cual explica el nombre de la variable en el cual se debe ingresar el id y el secret de google 
+```
+Adentro de la carpeta de backup tambien se encuentra un archivo `.env.example` en el cual explica el nombre de la variable en el cual se debe ingresar el id y el secret de google 
+```
 GOOGLE_CLIENT_ID=id
 GOOGLE_CLIENT_SECRET=secret
+```
 
-
-#4. Ejecucion del import
+# Ejecucion del import
 Se puede hacer mediante el comando
 ```docker exec -it keycloak /opt/keycloak/bin/kc.sh import --file /opt/keycloak/data/import/realm-import.json```
 
-O modificando el docker-compose.yml
+O modificando el `docker-compose.yml`
 ```services:
   keycloak:
     # ...
@@ -94,4 +97,4 @@ O modificando el docker-compose.yml
 ```
 
 
-Luego ejecutar el docker realizando  ```docker compose up -d```
+Luego ejecutar el docker realizando  `docker compose up -d`
